@@ -2,20 +2,20 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const cors = require('cors');
 
 app.use(cors());
 
-mongoose.connect(process.env.DATABASE_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect(process.env.DATABASE_URL, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
-const db = mongoose.connection;
+// const db = mongoose.connection;
 
-db.on('error', (error) => console.log(error));
-db.once('open', () => console.log('Connected to database'));
+// db.on('error', (error) => console.log(error));
+// db.once('open', () => console.log('Connected to database'));
 
 // require('./seeds/seed.js');
 
