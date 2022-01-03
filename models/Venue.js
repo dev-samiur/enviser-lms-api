@@ -37,6 +37,10 @@ const venueSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  lesson: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('Venue', venueSchema, 'venues');
