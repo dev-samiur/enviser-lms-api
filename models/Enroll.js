@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const bookingSchema = new mongoose.Schema({
-  venue_id: {
+const enrollSchema = new mongoose.Schema({
+  course_id: {
 		type: String,
 		required: true
 	},
@@ -15,4 +15,4 @@ const bookingSchema = new mongoose.Schema({
 	}
 });
 
-module.exports = mongoose.model('Booking', bookingSchema, 'bookings');
+module.exports = mongoose.model('Enroll', enrollSchema, 'enrolls');

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const venueSchema = new mongoose.Schema({
+const courseSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -43,4 +43,4 @@ const venueSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Venue', venueSchema, 'venues');
+module.exports = mongoose.model('Course', courseSchema, 'courses');

@@ -24,14 +24,11 @@ app.use(express.json());
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 
-const venueRoutes= require('./routes/venue');
-app.use('/api/venue', venueRoutes);
+const courseRoutes= require('./routes/course');
+app.use('/api/course', courseRoutes);
 
-const slotRoutes= require('./routes/slot');
-app.use('/api/slot', slotRoutes);
-
-const bookingRoutes= require('./routes/booking');
-app.use('/api/booking', bookingRoutes);
+const enrollRoutes= require('./routes/enroll');
+app.use('/api/enroll', enrollRoutes);
 
 const transactionRoutes= require('./routes/transaction');
 app.use('/api/transaction', transactionRoutes);

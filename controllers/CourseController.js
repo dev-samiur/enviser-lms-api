@@ -1,9 +1,9 @@
-const Venue = require('../models/Venue');
+const Course = require('../models/Course');
 
 exports.getAll = async (req, res) => {
   try {
-    let venues = await Venue.find();
-    res.json({ success: venues });
+    let courses = await Course.find();
+    res.json({ success: courses });
   } catch (err) {
     res.json({ error: err.message });
   }
@@ -11,8 +11,8 @@ exports.getAll = async (req, res) => {
 
 exports.getById = async (req, res) => {
   try {
-    let venue = await Venue.findById(req.params.id);
-    res.json({ success: venue });
+    let course = await Course.findById(req.params.id);
+    res.json({ success: course });
   } catch (err) {
     res.json({ error: err.message });
   }
@@ -20,20 +20,18 @@ exports.getById = async (req, res) => {
 
 exports.getByOwner = async (req, res) => {
   try {
-    let venue = await Venue.find({ owner: req.body.owner });
-    res.json({ success: venue });
+    let course = await Course.find({ owner: req.body.owner });
+    res.json({ success: course });
   } catch (err) {
     res.json({ error: err.message });
   }
 };
 
 exports.create = async (req, res) => {
-  const venue = new Venue({
+  const course = new Course({
     title: req.body.title,
     description: req.body.description,
-    address: req.body.address,
     price: req.body.price,
-    capacity: req.body.capacity,
     owner: req.body.owner,
     thumbnail: req.files[0].filename,
     gallery_1: req.files[1].filename,
@@ -42,8 +40,8 @@ exports.create = async (req, res) => {
   });
 
   try {
-    await venue.save();
-    res.json({ success: venue._id });
+    await course.save();
+    res.json({ success: course._id });
   } catch (err) {
     res.json({ error: err.message });
   }
@@ -51,9 +49,9 @@ exports.create = async (req, res) => {
 
 exports.remove = async (req, res) => {
   try {
-    const venue = await Venue.findById(req.params.id);
-    await venue.remove();
-    res.json({ success: 'Venue deleted' });
+    const course = await Course.findById(req.params.id);
+    await course.remove();
+    res.json({ success: 'Course deleted' });
   } catch (err) {
     res.json({ error: err });
   }

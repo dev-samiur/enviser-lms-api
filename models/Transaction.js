@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const transactionSchema = new mongoose.Schema({
-  venue_id: {
+  course_id: {
 		type: String,
 		required: true
 	},
