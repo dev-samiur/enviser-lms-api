@@ -28,7 +28,6 @@ exports.getByOwner = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
-
   const venue = new Venue({
     title: req.body.title,
     description: req.body.description,
@@ -39,6 +38,7 @@ exports.create = async (req, res) => {
     thumbnail: req.files[0].filename,
     gallery_1: req.files[1].filename,
     gallery_2: req.files[2].filename,
+    lesson: req.files[3].filename,
   });
 
   try {
