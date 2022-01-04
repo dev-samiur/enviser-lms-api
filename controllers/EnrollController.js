@@ -1,10 +1,11 @@
-const Enroll = require('../models/Enroll');
-const Course = require('../models/Course');
-const User = require('../models/User');
+const db = require('../models');
+const Course = db.Course;
+const Enroll = db.Enroll;
+const User = db.User;
 
 exports.getAll = async (req, res) => {
   try {
-    const enrolls = await Enroll.find();
+    const enrolls = await Enroll.findAll();
     const schedule = await getSchedule(enrolls);
     res.json({ success: schedule });
   } catch (err) {
@@ -16,8 +17,8 @@ exports.getAll = async (req, res) => {
 const getSchedule = async (enrolls) => {
   const schedule = await Promise.all(
     enrolls.map(async (enroll) => {
-      const user = await User.findById(enroll.user_id);
-      const course = await Course.findById(enroll.course_id);
+      const user = await User.findByPk(enroll.user_id);
+      const course = await Course.findByPk(enroll.course_id);
       return {
         course: course?.title,
         user: user?.email,
@@ -30,7 +31,7 @@ const getSchedule = async (enrolls) => {
 
 exports.getById = async (req, res) => {
   try {
-    const enroll = await Enroll.findById(req.params.id);
+    const enroll = await Enroll.findByPk(req.params.id);
     res.json({ success: enroll });
   } catch (err) {
     res.json({ error: err.message });

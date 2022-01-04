@@ -1,8 +1,9 @@
-const Course = require('../models/Course');
+const db = require('../models');
+const Course = db.Course;
 
 exports.getAll = async (req, res) => {
   try {
-    let courses = await Course.find();
+    let courses = await Course.findAll();
     res.json({ success: courses });
   } catch (err) {
     res.json({ error: err.message });
@@ -11,7 +12,7 @@ exports.getAll = async (req, res) => {
 
 exports.getById = async (req, res) => {
   try {
-    let course = await Course.findById(req.params.id);
+    let course = await Course.findByPk(req.params.id);
     res.json({ success: course });
   } catch (err) {
     res.json({ error: err.message });
@@ -20,7 +21,7 @@ exports.getById = async (req, res) => {
 
 exports.getByOwner = async (req, res) => {
   try {
-    let course = await Course.find({ owner: req.body.owner });
+    let course = await Course.findAll({ where: { owner: req.body.owner } });
     res.json({ success: course });
   } catch (err) {
     res.json({ error: err.message });
@@ -49,8 +50,8 @@ exports.create = async (req, res) => {
 
 exports.remove = async (req, res) => {
   try {
-    const course = await Course.findById(req.params.id);
-    await course.remove();
+    const course = await Course.findByPk(req.params.id);
+    await course.destroy();
     res.json({ success: 'Course deleted' });
   } catch (err) {
     res.json({ error: err });

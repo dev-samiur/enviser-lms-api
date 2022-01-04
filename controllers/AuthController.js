@@ -1,4 +1,5 @@
-const User = require('../models/User');
+const db = require("../models")
+const User = db.User
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -8,7 +9,7 @@ exports.login = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ where: { email: email } });
 
     if (!user) {
       return res.json({ error: 'Invalid login details' });
@@ -40,13 +41,14 @@ exports.login = async (req, res) => {
 
 exports.register = async (req, res) => {
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  const user = new User({
+    username: req.body.username,
+    email: req.body.email,
+    password: hashedPassword,
+    type: req.body.type,
+  });
   try {
-    await User.create({
-      username: req.body.username,
-      email: req.body.email,
-      password: hashedPassword,
-      type: req.body.type,
-    });
+    await user.save();
     res.json({ success: 'User registration successful' });
   } catch (err) {
     res.json({ error: err });

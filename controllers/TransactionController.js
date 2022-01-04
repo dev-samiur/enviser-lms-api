@@ -1,9 +1,10 @@
-const Transaction = require('../models/Transaction');
-const Course = require('../models/Course');
+const db = require('../models');
+const Course = db.Course;
+const Transaction = db.Transaction;
 
 exports.getAll = async (req, res) => {
   try {
-    const transactions = await Transaction.find();
+    const transactions = await Transaction.findAll();
     res.json({ success: transactions });
   } catch (err) {
     res.json({ error: err.message });
@@ -12,8 +13,8 @@ exports.getAll = async (req, res) => {
 
 exports.getById = async (req, res) => {
   try {
-    const courses = await Course.find({ owner: req.params.id });
-    const transactions = await Transaction.find();
+    const courses = await Course.findAll({ where: { owner: req.params.id } });
+    const transactions = await Transaction.findAll();
     const filteredVenues = courses.map((course) => course._id.toString());
     filteredTransactions = [];
     transactions.forEach((transaction) => {
