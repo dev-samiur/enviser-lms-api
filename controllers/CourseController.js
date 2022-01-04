@@ -1,5 +1,7 @@
 const db = require('../models');
 const Course = db.Course;
+const Enroll = db.Enroll;
+const Transaction = db.Transaction;
 
 exports.getAll = async (req, res) => {
   try {
@@ -51,6 +53,15 @@ exports.create = async (req, res) => {
 exports.remove = async (req, res) => {
   try {
     const course = await Course.findByPk(req.params.id);
+    const transactions = await Transaction.findAll({
+      where: { course_id: course.id },
+    });
+    const enrolls = await Enroll.findAll({ where: { course_id: course.id } });
+    const enrollIds = enrolls.map((enroll) => enroll.id);
+    const transactionIds = transactions.map((transaction) => transaction.id);
+
+    Enroll.destroy({ where: { id: [...enrollIds] } });
+    Transaction.destroy({ where: { id: [...transactionIds] } });
     await course.destroy();
     res.json({ success: 'Course deleted' });
   } catch (err) {
