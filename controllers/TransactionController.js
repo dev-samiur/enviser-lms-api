@@ -15,7 +15,7 @@ exports.getById = async (req, res) => {
   try {
     const courses = await Course.findAll({ where: { owner: req.params.id } });
     const transactions = await Transaction.findAll();
-    const filteredVenues = courses.map((course) => course._id.toString());
+    const filteredVenues = courses.map((course) => course.id);
     filteredTransactions = [];
     transactions.forEach((transaction) => {
       const exist = filteredVenues.includes(transaction.course_id);

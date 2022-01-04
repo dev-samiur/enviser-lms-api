@@ -22,7 +22,7 @@ const getSchedule = async (enrolls) => {
       return {
         course: course?.title,
         user: user?.email,
-        date: enroll?.date,
+        date: enroll?.createdAt,
       };
     })
   );
