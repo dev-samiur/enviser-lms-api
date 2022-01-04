@@ -37,7 +37,7 @@ exports.create = async (req, res) => {
 
   try {
     await transaction.save();
-    res.json({ success: transaction._id });
+    res.json({ success: transaction.id });
   } catch (err) {
     res.json({ error: err.message });
   }

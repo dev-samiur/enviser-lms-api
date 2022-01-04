@@ -42,7 +42,7 @@ exports.create = async (req, res) => {
 
   try {
     await course.save();
-    res.json({ success: course._id });
+    res.json({ success: course.id });
   } catch (err) {
     res.json({ error: err.message });
   }

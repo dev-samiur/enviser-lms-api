@@ -47,7 +47,7 @@ exports.create = async (req, res) => {
 
   try {
     await enroll.save();
-    res.json({ success: enroll._id });
+    res.json({ success: enroll.id });
   } catch (err) {
     res.json({ error: err.message });
   }

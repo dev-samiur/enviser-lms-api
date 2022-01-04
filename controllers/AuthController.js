@@ -28,10 +28,10 @@ exports.login = async (req, res) => {
     res.json({
       success: {
         token,
-        userId: user._id,
+        userId: user.id,
         username: user.username,
         email: user.email,
-        type: user.type,
+        type: user.user_type,
       },
     });
   } catch (err) {
@@ -45,7 +45,7 @@ exports.register = async (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: hashedPassword,
-    type: req.body.type,
+    user_type: req.body.userType,
   });
   try {
     await user.save();
